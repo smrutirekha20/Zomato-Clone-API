@@ -8,10 +8,7 @@ import com.example.zomato.utility.ErrorStructure;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("${zomato.base_url}")
@@ -25,6 +22,12 @@ public class RestaurantController {
                                                                                     restaurantRequest) {
         RestaurantResponse restaurantResponse = restaurantService.saveRestaurant(restaurantRequest);
         return appResponseBuilder.success(HttpStatus.CREATED, "Restaurant created", restaurantResponse);
+    }
+    @PutMapping("/restaurants/{restaurantId}")
+    public ResponseEntity<ErrorStructure<RestaurantResponse>> updateRestaurant(@RequestBody RestaurantRequest restaurantRequest,@PathVariable String restaurantId){
+
+        RestaurantResponse restaurantResponse=restaurantService.updateRestaurant(restaurantRequest,restaurantId);
+        return appResponseBuilder.success(HttpStatus.OK,"Restaurant updated", restaurantResponse);
     }
 }
 

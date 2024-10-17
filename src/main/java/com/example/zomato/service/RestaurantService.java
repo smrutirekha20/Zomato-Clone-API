@@ -1,6 +1,7 @@
 package com.example.zomato.service;
 
 import com.example.zomato.entity.Restaurant;
+import com.example.zomato.exception.RestaurantNotFoundByIdException;
 import com.example.zomato.mapper.RestaurantMapper;
 import com.example.zomato.repository.RestaurantRepository;
 import com.example.zomato.responsedtos.RestaurantResponse;
@@ -16,10 +17,20 @@ public class RestaurantService {
 
     public RestaurantResponse saveRestaurant(RestaurantRequest restaurantRequest) {
 
-
-
-            Restaurant restaurant=restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant())); //user is created with unique identifier
+        Restaurant restaurant=restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant())); //user is created with unique identifier
             return restaurantMapper.mapToRestaurantResponse(restaurant);
 
         }
+
+    public RestaurantResponse updateRestaurant(RestaurantRequest restaurantRequest, String restaurantId) {
+
+        return restaurantRepository.findById(restaurantId)
+                .map(exRestaurant -> {
+                    exRestaurant=restaurantMapper.mapToRestaurant(restaurantRequest,exRestaurant);
+                    exRestaurant=restaurantRepository.save(exRestaurant);
+                    return restaurantMapper.mapToRestaurantResponse(exRestaurant);
+
+                })
+                .orElseThrow(()-> new RestaurantNotFoundByIdException("Failed To Update Restaurant"));
     }
+}
