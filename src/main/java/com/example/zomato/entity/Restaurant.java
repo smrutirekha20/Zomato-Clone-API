@@ -3,6 +3,7 @@ package com.example.zomato.entity;
 import com.example.zomato.config.GenerateCustomId;
 import com.example.zomato.enums.DietType;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name="restaurants")
-@Getter
-@Setter
+@Data
 public class Restaurant {
 
     @Id
