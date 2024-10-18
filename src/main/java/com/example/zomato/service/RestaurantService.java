@@ -33,4 +33,10 @@ public class RestaurantService {
                 })
                 .orElseThrow(()-> new RestaurantNotFoundByIdException("Failed To Update Restaurant"));
     }
+    public  RestaurantResponse findRestaurantById( String restaurantId) {
+
+        return restaurantRepository.findById(restaurantId)
+                .map(restaurantMapper::mapToRestaurantResponse)
+                .orElseThrow(()->new RestaurantNotFoundByIdException("user not found by id"));
+    }
 }

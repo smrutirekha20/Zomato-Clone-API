@@ -29,5 +29,11 @@ public class RestaurantController {
         RestaurantResponse restaurantResponse=restaurantService.updateRestaurant(restaurantRequest,restaurantId);
         return appResponseBuilder.success(HttpStatus.OK,"Restaurant updated", restaurantResponse);
     }
+
+    @GetMapping("/restaurants/{restaurantId}")
+    public ResponseEntity<ErrorStructure<RestaurantResponse>> findRestaurantById(@PathVariable String restaurantId){
+        RestaurantResponse restaurantResponse= restaurantService.findRestaurantById(restaurantId);
+        return appResponseBuilder.success(HttpStatus.FOUND,"Restaurant found by given id",restaurantResponse);
+    }
 }
 
