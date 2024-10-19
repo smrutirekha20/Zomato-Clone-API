@@ -1,15 +1,15 @@
 package com.example.zomato.requestdtos;
 
+import com.example.zomato.entity.Address;
 import com.example.zomato.enums.DietType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 import java.util.List;
-@Getter
-@Setter
+@Data
 public class RestaurantRequest {
 
     @NotNull(message = "Name can not be null")
@@ -29,4 +29,7 @@ public class RestaurantRequest {
     @NotNull(message="dietTypes can not be not null")
     @NotBlank(message="dietTypes can not be blank")
     private List<DietType> dietTypes;
+
+    @NotNull(message = "address can not be null")
+    private Address address;
 }
