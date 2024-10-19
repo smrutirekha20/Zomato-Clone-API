@@ -1,5 +1,6 @@
 package com.example.zomato.controller;
 
+import com.example.zomato.entity.Address;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.requestdtos.RestaurantRequest;
 import com.example.zomato.service.RestaurantService;
@@ -19,7 +20,7 @@ public class RestaurantController {
 
     @PostMapping("/restaurants")
     public ResponseEntity<ErrorStructure<RestaurantResponse>> addRestaurant(@RequestBody RestaurantRequest
-                                                                                    restaurantRequest) {
+                                                                                    restaurantRequest){
         RestaurantResponse restaurantResponse = restaurantService.saveRestaurant(restaurantRequest);
         return appResponseBuilder.success(HttpStatus.CREATED, "Restaurant created", restaurantResponse);
     }
