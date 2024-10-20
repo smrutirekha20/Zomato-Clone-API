@@ -1,9 +1,11 @@
 package com.example.zomato.controller;
 
-import com.example.zomato.entity.Address;
+import com.example.zomato.entity.Restaurant;
+import com.example.zomato.repository.RestaurantRepository;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.requestdtos.RestaurantRequest;
 import com.example.zomato.service.RestaurantService;
+import com.example.zomato.service.ImageService;
 import com.example.zomato.utility.AppResponseBuilder;
 import com.example.zomato.utility.ErrorStructure;
 import lombok.AllArgsConstructor;
@@ -12,12 +14,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("${zomato.base_url}")
 @AllArgsConstructor
 public class RestaurantController {
     private RestaurantService restaurantService;
     private AppResponseBuilder appResponseBuilder;
+    private RestaurantRepository restaurantRepository;
+    private ImageService imageService;
 
     @PostMapping("/restaurants")
     public ResponseEntity<ErrorStructure<RestaurantResponse>> addRestaurant(@RequestBody RestaurantRequest
@@ -38,8 +44,10 @@ public class RestaurantController {
         return appResponseBuilder.success(HttpStatus.FOUND,"Restaurant found by given id",restaurantResponse);
     }
 
-//    public ResponseEntity<ErrorStructure<RestaurantResponse>> uploadImage(@RequestParam MultipartFile file){
-//
-//    }
+    public ResponseEntity<ErrorStructure<RestaurantResponse>> uploadImage(@PathVariable String restaurantId,@RequestParam MultipartFile file) throws IOException {
+     RestaurantResponse restaurantResponse=restaurantService.findRestaurantById(restaurantId);
+        String imageUrl= imageService.uploadImage(file);
+        restaurantService.uploadRestaurantImage(restaurantId,imageUrl);
+        return appResponseBuilder.success(HttpStatus.OK,"image uploaded", restaurantResponse);
+    }
 }
-
