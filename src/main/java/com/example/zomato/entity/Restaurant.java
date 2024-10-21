@@ -38,7 +38,7 @@ public class Restaurant {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    }
+
 }
 
 
