@@ -13,7 +13,7 @@ public class AddressRequest {
     private String addressLine1;
 
     @NotNull
-    private String AddressLine2;
+    private String addressLine2;
 
     @NotNull(message = "land mark can not be null")
     @NotBlank(message = "land mark can not be blank")
