@@ -42,11 +42,11 @@ public class RestaurantService {
                 .orElseThrow(()->new RestaurantNotFoundByIdException("user not found by id"));
     }
 
-    public RestaurantResponse uploadRestaurantImage(String restaurantId, String imageUrl) {
-
-        Restaurant restaurant=restaurantRepository.findById(restaurantId)
-                .orElseThrow(()-> new RestaurantNotFoundByIdException("Restaurant not found by given id"));
-
-        restaurant.setImageUrl(imageUrl);
-    }
+//    public RestaurantResponse uploadRestaurantImage(String restaurantId, String imageUrl) {
+//
+//        Restaurant restaurant=restaurantRepository.findById(restaurantId)
+//                .orElseThrow(()-> new RestaurantNotFoundByIdException("Restaurant not found by given id"));
+//
+////        restaurant.setImageUrl(imageUrl);
+//    }
 }
