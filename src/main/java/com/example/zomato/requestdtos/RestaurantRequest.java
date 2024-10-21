@@ -30,6 +30,5 @@ public class RestaurantRequest {
     @NotBlank(message="dietTypes can not be blank")
     private List<DietType> dietTypes;
 
-    @NotNull(message = "address can not be null")
-    private Address address;
+
 }
