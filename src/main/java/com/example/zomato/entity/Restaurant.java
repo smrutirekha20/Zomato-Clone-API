@@ -38,6 +38,8 @@ public class Restaurant {
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
+    @ManyToMany
+    private List<Cuisine> cuisines;
 
 }
 
