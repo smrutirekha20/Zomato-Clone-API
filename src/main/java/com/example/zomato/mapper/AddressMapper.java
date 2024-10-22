@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AddressMapper {
 
-    public Address mapToAddress(AddressRequest addressRequest, Address address){
+    public Address mapToAddress(AddressRequest addressRequest, Address address) {
         address.setAddressLine1(addressRequest.getAddressLine1());
         address.setAddressLine2(addressRequest.getAddressLine2());
         address.setArea(addressRequest.getArea());
@@ -22,7 +22,8 @@ public class AddressMapper {
 
         return address;
     }
-    public AddressResponse mapToAddressResponse(Address address){
+
+    public AddressResponse mapToAddressResponse(Address address) {
         AddressResponse addressResponse = new AddressResponse();
         addressResponse.setAddressId(address.getAddressId());
         addressResponse.setAddressLine1(address.getAddressLine1());

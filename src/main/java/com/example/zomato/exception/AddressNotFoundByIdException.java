@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class AddressNotFoundByIdException extends RuntimeException{
+public class AddressNotFoundByIdException extends RuntimeException {
 
     private final String message;
 }

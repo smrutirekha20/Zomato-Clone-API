@@ -17,7 +17,7 @@ public class AddressExceptionHandler {
     private AppResponseBuilder appResponseBuilder;
 
     @ExceptionHandler(AddressNotFoundByIdException.class)
-    public ResponseEntity<ErrorStructure<String>> handleAddressNotFoundById(AddressNotFoundByIdException ex){
-        return  appResponseBuilder.error(HttpStatus.NOT_FOUND,ex.getMessage(),"Address not found by given id");
+    public ResponseEntity<ErrorStructure<String>> handleAddressNotFoundById(AddressNotFoundByIdException ex) {
+        return appResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), "Address not found by given id");
     }
 }

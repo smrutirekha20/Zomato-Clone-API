@@ -15,7 +15,7 @@ public class RestaurantExceptionHandler {
     private AppResponseBuilder appResponseBuilder;
 
     @ExceptionHandler(RestaurantNotFoundByIdException.class)
-    public ResponseEntity<ErrorStructure<String>> handleRestaurantNotFoundById(RestaurantNotFoundByIdException ex){
-        return  appResponseBuilder.error(HttpStatus.NOT_FOUND,ex.getMessage(),"User not found by given id");
+    public ResponseEntity<ErrorStructure<String>> handleRestaurantNotFoundById(RestaurantNotFoundByIdException ex) {
+        return appResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), "User not found by given id");
     }
 }

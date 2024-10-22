@@ -22,7 +22,7 @@ public class AddressService {
     private final AddressMapper addressMapper;
     private final RestaurantRepository restaurantRepository;
 
-    public AddressResponse saveAddress(AddressRequest addressRequest,String restaurantId) {
+    public AddressResponse saveAddress(AddressRequest addressRequest, String restaurantId) {
         Address address = addressMapper.mapToAddress(addressRequest, new Address());
         if (restaurantId != null) {
             Restaurant restaurant = restaurantRepository.findById(restaurantId)
@@ -43,22 +43,24 @@ public class AddressService {
 //
 
     }
+
     public AddressResponse findAddressById(String addressId) {
 
         return addressRepository.findById(addressId)
                 .map(addressMapper::mapToAddressResponse)
-                .orElseThrow(()->new AddressNotFoundByIdException("Address not found by id"));
+                .orElseThrow(() -> new AddressNotFoundByIdException("Address not found by id"));
     }
+
     public AddressResponse updateAddress(AddressRequest addressRequest, String addressId) {
 
         return addressRepository.findById(addressId)
                 .map(exAddress -> {
-                    exAddress=addressMapper.mapToAddress(addressRequest,exAddress);
-                    exAddress=addressRepository.save(exAddress);
+                    exAddress = addressMapper.mapToAddress(addressRequest, exAddress);
+                    exAddress = addressRepository.save(exAddress);
                     return addressMapper.mapToAddressResponse(exAddress);
 
                 })
-                .orElseThrow(()-> new AddressNotFoundByIdException("Failed To Update Address"));
+                .orElseThrow(() -> new AddressNotFoundByIdException("Failed To Update Address"));
     }
 }
 

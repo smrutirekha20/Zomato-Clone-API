@@ -1,8 +1,8 @@
 spring:
   application:
-   name: Zomato-Clone-API
+    name: Zomato-Clone-API
 
-#DATASOURCE CONFIGURATION
+  #DATASOURCE CONFIGURATION
   datasource:
     url: jdbc:mysql://localhost:3306/zomato_db?createDatabaseIfNotExist=true
     username: root
@@ -17,4 +17,4 @@ spring:
 
 # APPLICATION CONFIGURATION
 zomato:
-    base_url: api/v1
+  base_url: api/v1

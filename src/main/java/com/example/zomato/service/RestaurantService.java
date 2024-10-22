@@ -19,26 +19,27 @@ public class RestaurantService {
     private RestaurantMapper restaurantMapper;
 
     public RestaurantResponse saveRestaurant(RestaurantRequest restaurantRequest) {
-        Restaurant restaurant=restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant()));//user is created with unique identifier
+        Restaurant restaurant = restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant()));//user is created with unique identifier
         return restaurantMapper.mapToRestaurantResponse(restaurant);
 
-        }
+    }
 
     public RestaurantResponse updateRestaurant(RestaurantRequest restaurantRequest, String restaurantId) {
 
         return restaurantRepository.findById(restaurantId)
                 .map(exRestaurant -> {
-                    exRestaurant=restaurantMapper.mapToRestaurant(restaurantRequest,exRestaurant);
-                    exRestaurant=restaurantRepository.save(exRestaurant);
+                    exRestaurant = restaurantMapper.mapToRestaurant(restaurantRequest, exRestaurant);
+                    exRestaurant = restaurantRepository.save(exRestaurant);
                     return restaurantMapper.mapToRestaurantResponse(exRestaurant);
 
                 })
-                .orElseThrow(()-> new RestaurantNotFoundByIdException("Failed To Update Restaurant"));
+                .orElseThrow(() -> new RestaurantNotFoundByIdException("Failed To Update Restaurant"));
     }
+
     public RestaurantResponse findRestaurantById(String restaurantId) {
 
         return restaurantRepository.findById(restaurantId)
                 .map(restaurantMapper::mapToRestaurantResponse)
-                .orElseThrow(()->new RestaurantNotFoundByIdException("user not found by id"));
+                .orElseThrow(() -> new RestaurantNotFoundByIdException("user not found by id"));
     }
 }

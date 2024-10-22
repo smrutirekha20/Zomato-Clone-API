@@ -11,8 +11,8 @@ public class CustomIdGenerator implements IdentifierGenerator {
 
     @Override
     public Object generate(SharedSessionContractImplementor session, Object object) {
-        UUID uuid=UUID.randomUUID();
-        String id="zomato" + Year.now().toString()+uuid.toString();
+        UUID uuid = UUID.randomUUID();
+        String id = "zomato" + Year.now().toString() + uuid.toString();
         return id;
     }
 }

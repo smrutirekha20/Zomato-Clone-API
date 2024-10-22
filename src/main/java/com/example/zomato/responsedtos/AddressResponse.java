@@ -1,4 +1,5 @@
 package com.example.zomato.responsedtos;
+
 import lombok.Getter;
 import lombok.Setter;
 
