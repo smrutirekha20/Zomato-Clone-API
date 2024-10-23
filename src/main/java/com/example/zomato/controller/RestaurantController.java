@@ -6,6 +6,7 @@ import com.example.zomato.requestdtos.RestaurantRequest;
 import com.example.zomato.service.RestaurantService;
 import com.example.zomato.utility.AppResponseBuilder;
 import com.example.zomato.utility.ErrorStructure;
+import com.example.zomato.utility.ResponseStructure;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,7 +32,7 @@ public class RestaurantController {
                     })
             })
     @PostMapping("/restaurants")
-    public ResponseEntity<ErrorStructure<RestaurantResponse>> addRestaurant(@RequestBody @Valid RestaurantRequest
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@RequestBody @Valid RestaurantRequest
                                                                                     restaurantRequest) {
         RestaurantResponse restaurantResponse = restaurantService.saveRestaurant(restaurantRequest);
         return appResponseBuilder.success(HttpStatus.CREATED, "Restaurant created", restaurantResponse);
@@ -47,7 +48,7 @@ public class RestaurantController {
             })
 
     @PutMapping("/restaurants/{restaurantId}")
-    public ResponseEntity<ErrorStructure<RestaurantResponse>> updateRestaurant(@RequestBody @Valid RestaurantRequest restaurantRequest, @PathVariable String restaurantId) {
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody @Valid RestaurantRequest restaurantRequest, @PathVariable String restaurantId) {
 
         RestaurantResponse restaurantResponse = restaurantService.updateRestaurant(restaurantRequest, restaurantId);
         return appResponseBuilder.success(HttpStatus.OK, "Restaurant updated", restaurantResponse);
@@ -61,9 +62,11 @@ public class RestaurantController {
                     })
             })
     @GetMapping("/restaurants/{restaurantId}")
-    public ResponseEntity<ErrorStructure<RestaurantResponse>> findRestaurantById(@PathVariable @Valid String restaurantId) {
+    public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurantById(@PathVariable @Valid String restaurantId) {
         RestaurantResponse restaurantResponse = restaurantService.findRestaurantById(restaurantId);
         return appResponseBuilder.success(HttpStatus.FOUND, "Restaurant found by given id", restaurantResponse);
     }
+
+
 }
 
