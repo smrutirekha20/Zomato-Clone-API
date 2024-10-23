@@ -19,6 +19,6 @@ public class Cuisine {
     @Column(name= "title")
     private String title;
 
-    @ManyToMany(mappedBy = "cuisines",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "cuisines",cascade = CascadeType.ALL)
     private List<Restaurant> restaurants;
 }
