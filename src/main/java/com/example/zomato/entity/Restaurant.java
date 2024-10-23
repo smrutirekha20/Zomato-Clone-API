@@ -41,6 +41,7 @@ public class Restaurant {
     @ManyToMany
     private List<Cuisine> cuisines;
 
+
 }
 
 
