@@ -3,6 +3,7 @@ package com.example.zomato.exceptionhandler;
 import com.example.zomato.exception.RestaurantNotFoundByIdException;
 import com.example.zomato.utility.AppResponseBuilder;
 import com.example.zomato.utility.ErrorStructure;
+import com.example.zomato.utility.ResponseStructure;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,6 @@ public class RestaurantExceptionHandler {
 
     @ExceptionHandler(RestaurantNotFoundByIdException.class)
     public ResponseEntity<ErrorStructure<String>> handleRestaurantNotFoundById(RestaurantNotFoundByIdException ex) {
-        return appResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), "User not found by given id");
+        return appResponseBuilder.error(HttpStatus.NOT_FOUND, ex.getMessage(), "Restaurant not found by given id");
     }
 }

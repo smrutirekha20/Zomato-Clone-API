@@ -13,9 +13,9 @@ public class AppResponseBuilder {
                 .body(ErrorStructure.create(status, message, rootCause));
     }
 
-    public <T> ResponseEntity<ErrorStructure<T>> success(HttpStatus status, String message, T rootCause) {
+    public <T> ResponseEntity<ResponseStructure<T>> success(HttpStatus status, String message, T rootCause) {
         return ResponseEntity
                 .status(status)
-                .body(ErrorStructure.create(status, message, rootCause));
+                .body(ResponseStructure.create(status, message, rootCause));
     }
 }
