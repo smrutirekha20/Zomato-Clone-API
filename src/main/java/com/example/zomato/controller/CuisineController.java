@@ -33,7 +33,7 @@ public class CuisineController {
     @GetMapping("/cuisines")
     public ResponseEntity<ResponseStructure<List<CuisineResponse>>> getCuisines(){
         List<CuisineResponse> cuisineResponse = cuisineService.getAllCuisines();
-        return appResponseBuilder.success(HttpStatus.CREATED, "Cuisine created", cuisineResponse);
+        return appResponseBuilder.success(HttpStatus.CREATED, "Cuisine found", cuisineResponse);
     }
 }
 
