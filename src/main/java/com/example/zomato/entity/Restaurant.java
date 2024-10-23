@@ -41,6 +41,8 @@ public class Restaurant {
     @ManyToMany
     private List<Cuisine> cuisines;
 
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
+    private List<MenuCategory> menuCategories;
 
 }
 
