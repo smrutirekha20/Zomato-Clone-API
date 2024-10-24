@@ -9,6 +9,8 @@ import com.example.zomato.responsedtos.FoodTypeResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class FoodTypeService {
@@ -22,14 +24,13 @@ public class FoodTypeService {
 
     }
 
-    public FoodTypeResponse findFoodTypeByTitle(String title) {
-        if (!foodTypeRepository.existsByTitleIgnoreCase(title)) {
-            throw new FoodNotFoundByTitleException("Food type not found by title: " + title);
+    public List<String> findAllFoodTypes() {
+        List<FoodType> foodTypes = foodTypeRepository.findAll();
+            return foodTypes.stream()
+                    .map(foodTypeMapper::mapToFoodTypeResponse)
+                    .map(FoodTypeResponse::getTitle)
+                    .toList();
         }
-        FoodType foodType = foodTypeRepository.findFoodTypeByTitle(title)
-                .orElseThrow(() -> new FoodNotFoundByTitleException("Food type not found by title"));
-        return foodTypeMapper.mapToFoodTypeResponse(foodType);
-    }
 
 }
 
