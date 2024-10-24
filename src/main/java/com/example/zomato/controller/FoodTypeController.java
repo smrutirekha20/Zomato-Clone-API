@@ -27,9 +27,9 @@ public class FoodTypeController {
         return appResponseBuilder.success(HttpStatus.CREATED, "FoodType created", foodTypeResponse);
     }
 
-    @GetMapping("/foodType/{typeId}")
-    public ResponseEntity<ResponseStructure<FoodTypeResponse>> findFoodTypeById(@PathVariable @Valid String typeId) {
-        FoodTypeResponse foodTypeResponse = foodTypeService.findFoodTypeById(typeId);
-        return appResponseBuilder.success(HttpStatus.FOUND, "FoodType found by given id", foodTypeResponse);
+    @GetMapping("/foodType/{title}")
+    public ResponseEntity<ResponseStructure<FoodTypeResponse>> findFoodTypeById(@PathVariable @Valid String title) {
+        FoodTypeResponse foodTypeResponse = foodTypeService.findFoodTypeByTitle(title);
+        return appResponseBuilder.success(HttpStatus.FOUND, "FoodType found by given title", foodTypeResponse);
     }
 }

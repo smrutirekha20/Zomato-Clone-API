@@ -1,12 +1,11 @@
 package com.example.zomato.service;
 
 import com.example.zomato.entity.FoodType;
-import com.example.zomato.exception.FoodNotFoundByIdException;
+import com.example.zomato.exception.FoodNotFoundByTitleException;
 import com.example.zomato.mapper.FoodTypeMapper;
 import com.example.zomato.repository.FoodTypeRepository;
 import com.example.zomato.requestdtos.FoodTypeRequest;
 import com.example.zomato.responsedtos.FoodTypeResponse;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +17,20 @@ public class FoodTypeService {
     private final FoodTypeMapper foodTypeMapper;
 
     public FoodTypeResponse saveFoodType(FoodTypeRequest foodTypeRequest) {
-        if (foodTypeRepository.existsByTitleIgnoreCase(foodTypeRequest.getTitle())) {
-            throw new IllegalArgumentException("FoodType with this title already exists.");
-        }
         FoodType foodType = foodTypeRepository.save(foodTypeMapper.mapToFoodType(foodTypeRequest, new FoodType()));//user is created with unique identifier
         return foodTypeMapper.mapToFoodTypeResponse(foodType);
 
     }
 
-    public FoodTypeResponse findFoodTypeById(String typeId) {
-
-        return foodTypeRepository.findById(typeId)
-                .map(foodTypeMapper::mapToFoodTypeResponse)
-                .orElseThrow(() -> new FoodNotFoundByIdException("food type not found by id"));
+    public FoodTypeResponse findFoodTypeByTitle(String title) {
+        if (!foodTypeRepository.existsByTitleIgnoreCase(title)) {
+            throw new FoodNotFoundByTitleException("Food type not found by title: " + title);
+        }
+        FoodType foodType = foodTypeRepository.findFoodTypeByTitle(title)
+                .orElseThrow(() -> new FoodNotFoundByTitleException("Food type not found by title"));
+        return foodTypeMapper.mapToFoodTypeResponse(foodType);
     }
 
 }
+
+
