@@ -25,7 +25,7 @@ public class MenuCategoryController {
     private final AppResponseBuilder appResponseBuilder;
 
     @PostMapping("/menu_categories/{restaurantId}")
-    public ResponseEntity<ResponseStructure<MenuCategoryResponse>> addCuisine(@RequestBody @Valid MenuCategoryRequest menuCategoryRequest, @PathVariable String restaurantId) {
+    public ResponseEntity<ResponseStructure<MenuCategoryResponse>> addMenuCategory(@RequestBody @Valid MenuCategoryRequest menuCategoryRequest, @PathVariable String restaurantId) {
         MenuCategoryResponse menuCategoryResponse = menuCategoryService.saveMenuCategory(menuCategoryRequest, restaurantId);
         return appResponseBuilder.success(HttpStatus.CREATED, "MenuCategory created", menuCategoryResponse);
     }
