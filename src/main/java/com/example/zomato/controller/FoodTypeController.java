@@ -3,7 +3,6 @@ package com.example.zomato.controller;
 
 import com.example.zomato.requestdtos.FoodTypeRequest;
 import com.example.zomato.responsedtos.FoodTypeResponse;
-import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.service.FoodTypeService;
 import com.example.zomato.utility.AppResponseBuilder;
 import com.example.zomato.utility.ResponseStructure;
