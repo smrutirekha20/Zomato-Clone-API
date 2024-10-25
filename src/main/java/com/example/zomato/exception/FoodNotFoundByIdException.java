@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class FoodNotFoundByTitleException extends RuntimeException {
+public class FoodNotFoundByIdException extends RuntimeException {
 
     private final String message;
 }

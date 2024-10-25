@@ -1,7 +1,6 @@
 package com.example.zomato.service;
 
 import com.example.zomato.entity.FoodType;
-import com.example.zomato.exception.FoodNotFoundByTitleException;
 import com.example.zomato.mapper.FoodTypeMapper;
 import com.example.zomato.repository.FoodTypeRepository;
 import com.example.zomato.requestdtos.FoodTypeRequest;
