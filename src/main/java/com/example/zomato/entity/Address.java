@@ -1,10 +1,7 @@
 package com.example.zomato.entity;
 
 import com.example.zomato.config.GenerateCustomId;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -44,4 +41,7 @@ public class Address {
     @Column(name = "longitude")
     private double longitude;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

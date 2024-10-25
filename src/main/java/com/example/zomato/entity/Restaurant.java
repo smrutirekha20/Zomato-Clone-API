@@ -47,6 +47,10 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
     private List<Food> foods;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_owner_id")
+    private RestaurantOwner restaurantOwner;
+
 }
 
 
