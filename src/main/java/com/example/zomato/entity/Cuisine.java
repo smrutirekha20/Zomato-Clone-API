@@ -21,4 +21,7 @@ public class Cuisine {
 
     @ManyToMany(mappedBy = "cuisines",cascade = CascadeType.ALL)
     private List<Restaurant> restaurants;
+
+    @OneToMany(mappedBy = "cuisine",cascade = CascadeType.ALL)
+    private List<Food> foods;
 }
