@@ -23,7 +23,7 @@ public class UserController {
 
     private final UserService userService;
     private final AppResponseBuilder appResponseBuilder;
-    @PostMapping("/users")
+    @PostMapping("/register")
     public ResponseEntity<ResponseStructure<UserResponse>> addUser(@RequestBody @Valid UserRequest
                                                                                        userRequest) {
         UserResponse userResponse = userService.saveUser(userRequest);
