@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,6 +32,7 @@ public class RestaurantController {
                             @Content(schema = @Schema(implementation = ErrorStructure.class))
                     })
             })
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PostMapping("/restaurants")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> addRestaurant(@RequestBody @Valid RestaurantRequest
                                                                                     restaurantRequest) {
@@ -46,7 +48,7 @@ public class RestaurantController {
                             @Content(schema = @Schema(implementation = ErrorStructure.class))
                     })
             })
-
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PutMapping("/restaurants/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> updateRestaurant(@RequestBody @Valid RestaurantRequest restaurantRequest, @PathVariable String restaurantId) {
 
@@ -61,6 +63,7 @@ public class RestaurantController {
                             @Content(schema = @Schema(implementation = ErrorStructure.class))
                     })
             })
+    @PreAuthorize("hasAuthority('RESTAURANT_READ')")
     @GetMapping("/restaurants/{restaurantId}")
     public ResponseEntity<ResponseStructure<RestaurantResponse>> findRestaurantById(@PathVariable @Valid String restaurantId) {
         RestaurantResponse restaurantResponse = restaurantService.findRestaurantById(restaurantId);

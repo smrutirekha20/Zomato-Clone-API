@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class FoodTypeController {
     private final AppResponseBuilder appResponseBuilder;
     private final FoodTypeRepository foodTypeRepository;
 
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PostMapping("/foodType")
     public ResponseEntity<ResponseStructure<FoodTypeResponse>> addFoodType(@RequestBody @Valid FoodTypeRequest
                                                                                    foodTypeRequest) {
@@ -35,6 +37,7 @@ public class FoodTypeController {
         return appResponseBuilder.success(HttpStatus.CREATED, "FoodType created", foodTypeResponse);
     }
 
+    @PreAuthorize("hasAuthority('RESTAURANT_READ')")
     @GetMapping("/foodType")
     public ResponseEntity<ResponseStructure<List<String>>> findAllFoodType() {
         List<String> foodTypeResponse = foodTypeService.findAllFoodTypes();

@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -32,6 +33,7 @@ public class AddressController {
                             @Content(schema = @Schema(implementation = ErrorStructure.class))
                     })
             })
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PostMapping("/addresses")
     public ResponseEntity<ResponseStructure<AddressResponse>> addAddress(@RequestBody @Valid AddressRequest addressRequest, @RequestParam String restaurantId) {
         AddressResponse addressResponse = addressService.saveAddress(addressRequest, restaurantId);
@@ -46,6 +48,7 @@ public class AddressController {
                             @Content(schema = @Schema(implementation = ErrorStructure.class))
                     })
             })
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PutMapping("/addresses/{addressId}")
     public ResponseEntity<ResponseStructure<AddressResponse>> updateAddress(@RequestBody @Valid AddressRequest addressRequest, @PathVariable String addressId) {
         AddressResponse addressResponse = addressService.updateAddress(addressRequest, addressId);

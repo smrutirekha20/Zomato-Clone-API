@@ -1,14 +1,13 @@
 package com.example.zomato.service;
 
-import com.example.zomato.entity.Address;
 import com.example.zomato.entity.Restaurant;
+import com.example.zomato.entity.RestaurantOwner;
 import com.example.zomato.exception.RestaurantNotFoundByIdException;
-import com.example.zomato.mapper.AddressMapper;
 import com.example.zomato.mapper.RestaurantMapper;
 import com.example.zomato.repository.RestaurantRepository;
-import com.example.zomato.responsedtos.AddressResponse;
 import com.example.zomato.responsedtos.RestaurantResponse;
 import com.example.zomato.requestdtos.RestaurantRequest;
+import com.example.zomato.security.AuthUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +16,11 @@ import org.springframework.stereotype.Service;
 public class RestaurantService {
     private RestaurantRepository restaurantRepository;
     private RestaurantMapper restaurantMapper;
-
+    private AuthUtil authUtil;
     public RestaurantResponse saveRestaurant(RestaurantRequest restaurantRequest) {
-        Restaurant restaurant = restaurantRepository.save(restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant()));//user is created with unique identifier
+        Restaurant restaurant=restaurantMapper.mapToRestaurant(restaurantRequest, new Restaurant());//user is created with unique identifier
+        restaurant.setRestaurantOwner((RestaurantOwner) authUtil.getCurrentUser());
+        restaurantRepository.save(restaurant);
         return restaurantMapper.mapToRestaurantResponse(restaurant);
 
     }

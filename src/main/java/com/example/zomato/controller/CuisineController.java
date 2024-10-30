@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +25,14 @@ public class CuisineController {
     private final AppResponseBuilder appResponseBuilder;
     private final CuisineService cuisineService;
 
+    @PreAuthorize("hasAuthority('RESTAURANT_WRITE')")
     @PostMapping("/cuisines/{restaurantId}")
     public ResponseEntity<ResponseStructure<CuisineResponse>> addCuisine(@RequestBody @Valid CuisineRequest cuisineRequest, @PathVariable String restaurantId) {
         CuisineResponse cuisineResponse = cuisineService.saveCuisine(cuisineRequest, restaurantId);
         return appResponseBuilder.success(HttpStatus.CREATED, "Cuisine created", cuisineResponse);
     }
 
+    @PreAuthorize("hasAuthority('RESTAURANT_READ')")
     @GetMapping("/cuisines")
     public ResponseEntity<ResponseStructure<List<CuisineResponse>>> getCuisines(){
         List<CuisineResponse> cuisineResponse = cuisineService.getAllCuisines();

@@ -51,6 +51,7 @@ public class Restaurant {
     @JoinColumn(name = "restaurant_owner_id")
     private RestaurantOwner restaurantOwner;
 
+
 }
 
 
