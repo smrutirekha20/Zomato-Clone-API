@@ -18,3 +18,6 @@ spring:
 # APPLICATION CONFIGURATION
 zomato:
   base_url: api/v1
+  jwt:
+    secret: ${JWT_SECRET}
+
