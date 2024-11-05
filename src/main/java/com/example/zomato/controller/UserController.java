@@ -9,6 +9,7 @@ import com.example.zomato.utility.AppResponseBuilder;
 import com.example.zomato.utility.ResponseStructure;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping("${zomato.base_url}")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -30,6 +32,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestBody @Valid LoginRequest loginRequest) {
+        log.info("Login Requested.");
         return userService.login(loginRequest);
     }
 

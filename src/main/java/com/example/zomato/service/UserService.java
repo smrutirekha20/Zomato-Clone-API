@@ -11,6 +11,7 @@ import com.example.zomato.requestdtos.UserRequest;
 import com.example.zomato.responsedtos.UserResponse;
 import com.example.zomato.security.JWTService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -42,10 +44,14 @@ public class UserService {
     }
 
     public String login(LoginRequest loginRequest){
+        log.info("Authenticating the username and password.");
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword());
         Authentication authentication =authenticationManager.authenticate(token);
         if(authentication.isAuthenticated()){
-            return jwtService.generateJWT(loginRequest.getEmail(),5*60*1000L);
+            User user=userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(()-> new UsernameNotFoundException("User not found "));
+            log.info("Login successful");
+            log.info("Generating Jwt");
+            return jwtService.generateJWT(loginRequest.getEmail(),5*60*1000L,user.getRole().name());
         }
         else {
             throw new UsernameNotFoundException("Failed to found username");
