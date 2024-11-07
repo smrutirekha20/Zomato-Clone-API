@@ -17,11 +17,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
 
 @AllArgsConstructor
 @Slf4j
-public class AuthFilter extends OncePerRequestFilter {
+public class RefreshFilter extends OncePerRequestFilter {
 
 
     private final JWTService jwtService;
@@ -32,7 +31,7 @@ public class AuthFilter extends OncePerRequestFilter {
         if(cookies!=null){
             String token= null;
             for(Cookie cookie:cookies){
-                if(cookie.getName().equals("at")){
+                if(cookie.getName().equals("rt")){
                     token=cookie.getValue();
                 }
             }

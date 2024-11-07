@@ -27,6 +27,7 @@ public class JWTService {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
+
     private Key getSigningKey(){
        return Keys.hmacShaKeyFor(Base64.getDecoder().decode(secret));
     }

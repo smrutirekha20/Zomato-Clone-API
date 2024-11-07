@@ -2,14 +2,16 @@ package com.example.zomato.controller;
 
 import com.example.zomato.requestdtos.LoginRequest;
 import com.example.zomato.requestdtos.UserRequest;
+import com.example.zomato.responsedtos.AuthResponse;
 import com.example.zomato.responsedtos.UserResponse;
-import com.example.zomato.security.JWTService;
 import com.example.zomato.service.UserService;
 import com.example.zomato.utility.AppResponseBuilder;
 import com.example.zomato.utility.ResponseStructure;
+import com.example.zomato.utility.SimpleResponseStructure;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,9 +33,26 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody @Valid LoginRequest loginRequest) {
+    public ResponseEntity<ResponseStructure<AuthResponse>> login(@RequestBody @Valid LoginRequest loginRequest) {
         log.info("Login Requested.");
-        return userService.login(loginRequest);
+        AuthResponse authResponse = userService.login(loginRequest);
+        HttpHeaders headers = userService.grantCredential(authResponse);
+
+        return appResponseBuilder.success(headers, HttpStatus.OK, "logged in", authResponse);
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<ResponseStructure<AuthResponse>> refreshLogin(@CookieValue(required = false,name = "rt") String refreshToken){
+        log.info("refresh login ");
+        AuthResponse authResponse=userService.refreshLogin(refreshToken);
+        HttpHeaders headers=userService.grantCredential(authResponse);
+
+        return appResponseBuilder.success(headers,HttpStatus.OK,"refreshed Login  successfully!!",authResponse);
+    }
+
+    @PostMapping("/logout")
+    public  ResponseEntity<SimpleResponseStructure> logOut(){
+        HttpHeaders headers=userService.logOut();
+        return appResponseBuilder.success(HttpStatus.OK,"logged out",headers);
+    }
 }
